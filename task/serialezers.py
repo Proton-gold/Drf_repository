@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from accounts.serialazer import UserSerializer
-from task.models import Project
+from task.models import Project, Task
 
 
 class ProjectCreateSerializer(serializers.Serializer):
@@ -24,3 +24,16 @@ class ProjectlistSerializer(serializers.Serializer):
     owner = UserSerializer()
     created_at = serializers.DateTimeField()
     updated_at = serializers.DateTimeField()
+
+class TaskSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Task
+        fields = (
+            "id",
+            "title",
+            "description",
+            'assigned_to',
+            "status",
+            'created_at',
+            'updated_at',
+        )

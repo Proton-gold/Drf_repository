@@ -11,5 +11,14 @@ class User(AbstractUser):
         except Token.DoesNotExist:
             token = Token.objects.create(user=self)
         return token.key
+
     class Meta:
         db_table = 'user'
+
+
+class BlacklistedToken(models.Model):
+    token = models.TextField(unique=True)
+    blacklisted_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'blacklisted_tokens'

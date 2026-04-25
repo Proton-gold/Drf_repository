@@ -20,8 +20,7 @@ class LoginSerializer(serializers.Serializer):
         user = authenticate(username=username, password=password)
         if not user:
             raise serializers.ValidationError('Failed to login')
-        token=user.token
-        return {"token":token}
+        return {"user": user}
 
 
 class RegistrationSerializer(serializers.ModelSerializer):
@@ -41,3 +40,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
 
     def create(self, data):
         return User.objects.create_user(**data)
+
+
+class BlacklistSerializer(serializers.Serializer):
+    refresh = serializers.CharField()
